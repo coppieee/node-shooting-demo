@@ -36,7 +36,7 @@ server.listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
 
-var io = require('socket.io').listen(server,{'log level':1})
+var io = require('socket.io').listen(server,{'log level':1});
 var _userId = 0;
 io.sockets.on('connection',function(socket){
 	socket.handshake.userId = _userId;

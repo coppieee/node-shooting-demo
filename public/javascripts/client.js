@@ -115,7 +115,7 @@ jQuery(function($) {
 			updateCss(bullet);
 			if(_player.x < bullet.x && bullet.x <_player.x + 50 &&
 			_player.y < bullet.y && bullet.y <_player.y + 50){
-				location.href = '/gameover'
+				location.href = '/gameover';
 			}
 			
 		});
