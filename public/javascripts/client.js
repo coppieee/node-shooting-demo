@@ -18,7 +18,7 @@ jQuery(function($) {
 				.attr('data-user-id',user.userId);
 			$('body').append(bullet.element);
 			
-			_bulletMap[data.userId] =bullet;
+			_bulletMap[data.userId] = bullet;
 			
 		}else{
 			user = _userMap[data.userId];
@@ -59,7 +59,6 @@ jQuery(function($) {
 	var updatePosition = function(unit){
 		unit.x += unit.v* Math.cos(unit.rotate * Math.PI /180);
 		unit.y += unit.v* Math.sin(unit.rotate * Math.PI /180);
-		
 	};
 	var updateCss = function(unit){
 		unit.element.css({
@@ -68,6 +67,7 @@ jQuery(function($) {
 			transform:'rotate('+unit.rotate+'deg)'
 		});
 	};
+	//メインループ
 	var f = function(){
 		if(_keyMap[37] === true){
 			//left
@@ -104,12 +104,12 @@ jQuery(function($) {
 		var w_width = $(window).width();
 		var w_height =$(window).height();
 		if(_player.x < -50){ _player.x = w_width;}
-		if(_player.y < -50){ _player.y = w_height}
+		if(_player.y < -50){ _player.y = w_height;}
 		if(_player.x > w_width){_player.x = -50;}
 		if(_player.y > w_height){_player.y = -50;}
 		
 		updatePosition(_bullet);
-		Object.keys(_bulletMap).forEach(function(key){
+		for(var key in _bulletMap){
 			var bullet = _bulletMap[key];
 			updatePosition(bullet);
 			updateCss(bullet);
@@ -117,8 +117,7 @@ jQuery(function($) {
 			_player.y < bullet.y && bullet.y <_player.y + 50){
 				location.href = '/gameover';
 			}
-			
-		});
+		}
 		updateCss(_bullet);
 		updateCss(_player);
 		_socket.emit('player-update',{x:_player.x|0,y:_player.y|0,rotate:_player.rotate|0,v:_player.v});
